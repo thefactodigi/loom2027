@@ -15,6 +15,16 @@ html{direction:rtl}
 body{font-family:'Heebo',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;margin:0;font-size:16px}
 .backdrop{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(1200px 800px at 85% -10%, rgba(31,167,232,.07), transparent 60%),radial-gradient(1000px 700px at 10% 110%, rgba(245,179,49,.07), transparent 60%),var(--bg)}
 .backdrop .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(140,180,230,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(140,180,230,.045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(80% 70% at 50% 40%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(80% 70% at 50% 40%,#000 30%,transparent 100%)}
+.bulb{display:inline-flex;filter:drop-shadow(0 0 22px rgba(245,179,49,.35))}
+.bulb .halo{transform-origin:60px 62px;animation:halo 2.8s ease-in-out infinite}
+.bulb .filament{animation:fil 2.8s ease-in-out infinite;filter:drop-shadow(0 0 4px #FFD98A)}
+.bulb .rays line{transform-origin:60px 62px;opacity:0;animation:rays 2.8s ease-in-out infinite}
+.bulb .rays line:nth-child(2),.bulb .rays line:nth-child(3){animation-delay:.15s}
+.bulb .rays line:nth-child(4),.bulb .rays line:nth-child(5){animation-delay:.3s}
+@keyframes halo{0%,100%{transform:scale(.7);opacity:.35}50%{transform:scale(1.15);opacity:1}}
+@keyframes fil{0%,100%{stroke:#F5B331;opacity:.55}50%{stroke:#FFF1CC;opacity:1}}
+@keyframes rays{0%,20%{opacity:0;transform:scale(.85)}55%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.bulb .halo,.bulb .filament,.bulb .rays line{animation:none;opacity:.9}}
 .ping{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--green)}
 .ping::before,.ping::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--green);opacity:0;animation:ping 3.2s ease-out infinite}
 .ping::after{animation-delay:1.6s}
@@ -154,8 +164,37 @@ ul.clean li .sub{color:var(--muted);font-weight:400}
 <!-- 1 · שער -->
 <section class="slide active" data-section="פתיחה">
   <div class="inner" style="text-align:center">
-    <div class="rise" style="display:flex;justify-content:center;margin-bottom:34px">
-      <div style="position:relative;width:64px;height:64px;display:flex;align-items:center;justify-content:center"><span class="ping" style="position:relative"></span></div>
+    <div class="rise" style="display:flex;justify-content:center;margin-bottom:26px">
+      <div class="bulb" aria-hidden="true">
+        <svg viewBox="0 0 120 150" width="112" height="140">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFD98A" stop-opacity=".95"/>
+              <stop offset="45%" stop-color="#F5B331" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#F5B331" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glass" cx="40%" cy="35%" r="70%">
+              <stop offset="0%" stop-color="#FFE7B0" stop-opacity=".55"/>
+              <stop offset="60%" stop-color="#F5B331" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#1FA7E8" stop-opacity=".08"/>
+            </radialGradient>
+          </defs>
+          <g class="rays" stroke="#F5B331" stroke-width="3" stroke-linecap="round">
+            <line x1="60" y1="8" x2="60" y2="20"/>
+            <line x1="22" y1="24" x2="30" y2="32"/>
+            <line x1="98" y1="24" x2="90" y2="32"/>
+            <line x1="8" y1="62" x2="20" y2="62"/>
+            <line x1="112" y1="62" x2="100" y2="62"/>
+          </g>
+          <circle class="halo" cx="60" cy="62" r="46" fill="url(#glow)"/>
+          <path class="glassbody" d="M60 24c-20 0-34 15-34 33 0 12 6 19 13 27 4 5 6 9 6 15h30c0-6 2-10 6-15 7-8 13-15 13-27 0-18-14-33-34-33z" fill="url(#glass)" stroke="#1FA7E8" stroke-width="2.5"/>
+          <path class="filament" d="M52 99c0-10 2-18 8-18s8 8 8 18M52 99c0-8-4-14-4-22M68 99c0-8 4-14 4-22" fill="none" stroke="#FFD98A" stroke-width="2.4" stroke-linecap="round"/>
+          <rect x="45" y="101" width="30" height="7" rx="3" fill="#1FA7E8"/>
+          <rect x="47" y="110" width="26" height="7" rx="3" fill="#1FA7E8" opacity=".75"/>
+          <rect x="50" y="119" width="20" height="7" rx="3" fill="#1FA7E8" opacity=".5"/>
+          <rect x="54" y="128" width="12" height="6" rx="3" fill="#8FA6C2" opacity=".6"/>
+        </svg>
+      </div>
     </div>
     <div class="mini rise d1">LOOM · תוכנית סושיאל שנתית לאישור הנהלה · 2027</div>
     <h1 class="rise d2" style="margin:18px auto 22px;max-width:900px">תוכנית 2027:<br><span style="color:var(--green)">מעבירים להילוך גבוה</span></h1>
